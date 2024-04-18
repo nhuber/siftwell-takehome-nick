@@ -23,7 +23,7 @@ from streamlit.hello.utils import show_code
 import pickle
 import lzma
 
-def data_frame_demo():
+def model_explorer():
     regr_best_new = pickle.load(lzma.open('regr_best.xz'))
 
     st.set_page_config(page_title="Siftwell Take-Home Model Explorer", page_icon="📊")
@@ -33,6 +33,6 @@ def data_frame_demo():
     """
     )
 
-data_frame_demo()
+model_explorer()
 
-show_code(data_frame_demo)
+show_code(model_explorer)
