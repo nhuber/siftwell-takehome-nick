@@ -34,14 +34,16 @@ st.write(
 
 def model_explorer():
 
-    regr_best, rf_cf_best, df_train_prepared, full_pipeline = load_data()
+    regr_best, rf_cf_best, df_train_prepared, full_pipeline, df_test = load_data()
 
-    st.slider('Slide me', min_value=0, max_value=10)
+    for col in df_test.columns:
+        if (type(df_test[col].iloc[0]) != 'str'):
+            st.slider(col, min_value=df_test[col].min(), max_value=df_test[col].max())
+
 
 @st.cache_data
 def load_data():
-    return pickle.load(lzma.open('regr_best.xz')), pickle.load(lzma.open('rf_cf_best.xz')),
-pickle.load(lzma.open('df_train_prepared.xz')), pickle.load(lzma.open('full_pipeline.xz'))
+    return pickle.load(lzma.open('regr_best.xz')), pickle.load(lzma.open('rf_cf_best.xz')), pickle.load(lzma.open('df_train_prepared.xz')), pickle.load(lzma.open('full_pipeline.xz')), pd.read_csv("/workspaces/siftwell-takehome-nick/coding_challenge_test_without_labels.csv")
 
 model_explorer()
 
