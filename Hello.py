@@ -20,7 +20,15 @@ import pandas as pd
 import streamlit as st
 from streamlit.hello.utils import show_code
 
+import pickle
+import lzma
+
+import sklearn
+
 def data_frame_demo():
+
+    regr_best_new = pickle.load(lzma.open('regr_best.xz'))
+
     @st.cache_data
     def get_UN_data():
         AWS_BUCKET_URL = "https://streamlit-demo-data.s3-us-west-2.amazonaws.com"
@@ -62,11 +70,11 @@ def data_frame_demo():
             % e.reason
         )
 
-st.set_page_config(page_title="DataFrame Demo", page_icon="📊")
-st.markdown("# DataFrame Demo")
+st.set_page_config(page_title="Siftwell Take-Home Model Explorer", page_icon="📊")
+st.markdown("# Siftwell Take-Home Model Explorer")
 st.write(
-    """This demo shows how to use `st.write` to visualize Pandas DataFrames.
-(Data courtesy of the [UN Data Explorer](http://data.un.org/Explorer.aspx).)"""
+    """This page allows the user to interact with the champion models to predict `total_future_cost` and `treatment__mental_health`, respectively.
+"""
 )
 
 data_frame_demo()
