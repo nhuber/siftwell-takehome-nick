@@ -26,13 +26,14 @@ import lzma
 import sklearn
 
 def model_explorer():
-    @st.cache_data
     st.set_page_config(page_title="Siftwell Take-Home Model Explorer", page_icon="📊")
     st.markdown("# Siftwell Take-Home Model Explorer")
     st.write(
         """This page allows the user to interact with the champion models to predict `total_future_cost` and `treatment__mental_health`, respectively.
     """
     )
+    
+    @st.cache_data
 
     regr_best = pickle.load(lzma.open('regr_best.xz'))
     rf_cf_best = pickle.load(lzma.open('rf_cf_best.xz'))
