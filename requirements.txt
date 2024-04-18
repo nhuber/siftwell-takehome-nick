@@ -4,5 +4,6 @@ pandas
 pydeck
 streamlit
 matplotlib
-scikit-learn
+sklearn
+seaborn
 pickle
