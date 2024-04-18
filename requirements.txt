@@ -7,4 +7,3 @@ matplotlib
 sklearn
 seaborn
 pickle
-blosc
