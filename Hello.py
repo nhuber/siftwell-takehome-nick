@@ -37,7 +37,7 @@ def model_explorer():
     regr_best, rf_cf_best, df_train_prepared, full_pipeline, df_test = load_data()
 
     for col in df_test.columns:
-        if (type(df_test[col].iloc[0]) != 'str'):
+        if (type(df_test[col].iloc[0]) is not str):
             st.slider(col, min_value=df_test[col].min(), max_value=df_test[col].max())
 
 
