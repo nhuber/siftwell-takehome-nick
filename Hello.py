@@ -23,6 +23,8 @@ from streamlit.hello.utils import show_code
 import pickle
 import lzma
 
+import sklearn
+
 def data_frame_demo():
     regr_best_new = pickle.load(lzma.open('regr_best.xz'))
 
