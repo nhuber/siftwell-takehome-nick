@@ -32,15 +32,15 @@ def model_explorer():
         """This page allows the user to interact with the champion models to predict `total_future_cost` and `treatment__mental_health`, respectively.
     """
     )
-    
-    @st.cache_data
 
-    regr_best = pickle.load(lzma.open('regr_best.xz'))
-    rf_cf_best = pickle.load(lzma.open('rf_cf_best.xz'))
-    df_train_prepared = pickle.load(lzma.open('df_train_prepared.xz'))
-    full_pipeline = pickle.load(lzma.open('full_pipeline.xz'))
+    regr_best, rf_cf_best, df_train_prepared, full_pipeline = load_data()
 
     st.slider('Slide me', min_value=0, max_value=10)
+
+@st.cache_data
+def load_data():
+    return pickle.load(lzma.open('regr_best.xz')), pickle.load(lzma.open('rf_cf_best.xz')),
+pickle.load(lzma.open('df_train_prepared.xz')), pickle.load(lzma.open('full_pipeline.xz'))
 
 model_explorer()
 
