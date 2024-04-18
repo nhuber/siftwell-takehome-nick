@@ -6,4 +6,3 @@ streamlit
 matplotlib
 scikit-learn
 seaborn
-pickle

@@ -24,7 +24,7 @@ import pickle
 import lzma
 
 def data_frame_demo():
-    # regr_best_new = pickle.load(lzma.open('regr_best.xz'))
+    regr_best_new = pickle.load(lzma.open('regr_best.xz'))
 
     st.set_page_config(page_title="Siftwell Take-Home Model Explorer", page_icon="📊")
     st.markdown("# Siftwell Take-Home Model Explorer")
