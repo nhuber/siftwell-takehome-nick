@@ -63,7 +63,7 @@ def model_explorer():
     prediction_mental_health = rf_cf_best.predict_proba(full_pipeline.transform(row_to_predict))
 
     with col3:
-        predicted_cost_st = st.metric(label="Predicted `total_future_cost`:", value=prediction_cost[0])
+        predicted_cost_st = st.metric(label="Predicted `total_future_cost`:", value=round(prediction_cost[0], 1))
         predicted_mental_health_st = st.metric(label="Predicted `treatment__mental_health`:", value=prediction_mental_health.mean(axis=0)[1])
 
 # load initial models and data
@@ -71,7 +71,7 @@ def model_explorer():
 # results are cached as this step takes ~5-10 seconds
 @st.cache_data
 def load_models_and_data():
-    return pickle.load(lzma.open('regr_best.xz')), pickle.load(lzma.open('rf_cf_best.xz')), pickle.load(lzma.open('full_pipeline.xz')), pd.read_csv("/workspaces/siftwell-takehome-nick/coding_challenge_test_without_labels.csv")
+    return pickle.load(lzma.open('regr_best.xz')), pickle.load(lzma.open('rf_cf_best.xz')), pickle.load(lzma.open('full_pipeline.xz')), pd.read_csv("coding_challenge_test_without_labels.csv")
 
 # prepare dataframe to be transformed by `full_pipeline`
 # results are cached for performance reasons
