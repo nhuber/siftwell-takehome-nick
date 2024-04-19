@@ -94,6 +94,3 @@ def process_df_test(df):
 model_explorer()
 
 show_code(model_explorer)
-
-# change name to publicly recognizable
-# mention that increase cost, lower likelihood of mental health treatment
