@@ -31,14 +31,8 @@ Every time you change the inputs, the model predictions are automatically update
 )
 
 def model_explorer():
-
-    global regr_best 
-    global rf_cf_best
-    global df_train_prepared # unused
-    global full_pipeline
-    global df_test
     
-    regr_best, rf_cf_best, df_train_prepared, full_pipeline, df_test = load_models_and_data()
+    regr_best, rf_cf_best, full_pipeline, df_test = load_models_and_data()
 
     df_test_processed = process_df_test(df_test)
 
@@ -69,16 +63,20 @@ def model_explorer():
     prediction_mental_health = rf_cf_best.predict_proba(full_pipeline.transform(row_to_predict))
 
     with col3:
-        predicted_cost_st = st.metric(label="Predicted `total_future_cost`:", value=round(prediction_cost[0], 0))
-        predicted_mental_health_st = st.metric(label="Predicted `treatment__mental_health`:", value=round(prediction_mental_health.mean(axis=0)[1], 4))
+        predicted_cost_st = st.metric(label="Predicted `total_future_cost`:", value=prediction_cost[0])
+        predicted_mental_health_st = st.metric(label="Predicted `treatment__mental_health`:", value=prediction_mental_health.mean(axis=0)[1])
 
+# load initial models and data
+# lzma-compressed pickle files used to be below Github's 100 MB file limit
+# results are cached as this step takes ~5-10 seconds
 @st.cache_data
 def load_models_and_data():
-    return pickle.load(lzma.open('regr_best.xz')), pickle.load(lzma.open('rf_cf_best.xz')), pickle.load(lzma.open('df_train_prepared.xz')), pickle.load(lzma.open('full_pipeline.xz')), pd.read_csv("/workspaces/siftwell-takehome-nick/coding_challenge_test_without_labels.csv")
+    return pickle.load(lzma.open('regr_best.xz')), pickle.load(lzma.open('rf_cf_best.xz')), pickle.load(lzma.open('full_pipeline.xz')), pd.read_csv("/workspaces/siftwell-takehome-nick/coding_challenge_test_without_labels.csv")
 
+# prepare dataframe to be transformed by `full_pipeline`
+# results are cached for performance reasons
 @st.cache_data
 def process_df_test(df):
-
     df_processed = df
 
     if 'line_number' in df_processed.columns:
@@ -97,4 +95,5 @@ model_explorer()
 
 show_code(model_explorer)
 
-# perhaps can refactor the first build of `row_to_predict`
+# change name to publicly recognizable
+# mention that increase cost, lower likelihood of mental health treatment
